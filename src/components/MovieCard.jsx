@@ -23,10 +23,8 @@ const Overlay = styled.div`
 `;
 
 const MovieInfo = styled.div`
-  h2,
-  p {
-    color: var(--color-text-white);
-  }
+  color: var(--color-text-white);
+  padding: 0rem 0rem 1rem 1rem;
 
   @media (min-width: 1024px) {
     padding: 2rem;
