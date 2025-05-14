@@ -19,6 +19,22 @@ const Backdrop = styled.div`
   color: white;
 `;
 
+const BackButton = styled.button`
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  width: fit-content;
+  margin-top: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+`;
+
 
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -76,7 +92,7 @@ const MovieDetail = () => {
 
   return (
     <Backdrop style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
-      <button onClick={handleBack}>← Back to list</button>
+      <BackButton onClick={handleBack}>◀ Movies</BackButton>
       <h1>{movie.title}</h1>
       <img
         src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
