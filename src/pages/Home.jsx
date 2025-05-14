@@ -58,7 +58,6 @@ const Home = () => {
 
   return (
     <main className='movie-list'>
-      <h1>Popular Movies</h1>
       <section>
         <div className='movie-grid'>
           {movies.map((movie) => (
