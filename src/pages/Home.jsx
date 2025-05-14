@@ -13,7 +13,6 @@ const Main = styled.main`
 
 const Section = styled.section`
   width: 100%;
-
   display: flex;
   flex-wrap: wrap;
 `;
@@ -21,10 +20,7 @@ const Section = styled.section`
 const CardLink = styled(Link)`
   width: 25%;
   background-color: pink;
-
-  img {
-    width: 100%;
-  }
+  position: relative;
 `;
 
 const API_KEY = import.meta.env.VITE_API_KEY;
