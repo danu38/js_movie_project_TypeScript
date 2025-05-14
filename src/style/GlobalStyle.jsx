@@ -7,7 +7,8 @@ const GlobalStyle = createGlobalStyle`
     --font-display: 'TAN-Rosebud', serif;
     --font-alt: 'Lexend', sans-serif;
     --color-bg: #FAFBF4;
-    --color-text:rgb(0, 0, 0);
+    --color-text-black:rgb(0, 0, 0);
+    --color-text-white: #FFFFFF;
     --color-accent: #FF7300;
     --link-color: #584793;
     --link-hover-color: #FFBF00;

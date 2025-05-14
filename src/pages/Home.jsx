@@ -18,9 +18,20 @@ const Section = styled.section`
 `;
 
 const CardLink = styled(Link)`
-  width: 25%;
-  background-color: pink;
   position: relative;
+  width: 50%;
+
+  @media (min-width: 768px) {
+    width: 33.33%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 25%;
+  }
+
+  @media (min-width: 1366px) {
+    width: 20%;
+  }
 `;
 
 const API_KEY = import.meta.env.VITE_API_KEY;
