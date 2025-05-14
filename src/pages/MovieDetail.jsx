@@ -35,6 +35,15 @@ const BackButton = styled.button`
   }
 `;
 
+const Poster = styled.img`
+  width: 100%;    
+  max-width: 300px;
+ border:5px solid white;
+  margin: 15rem 0 0 5rem;
+
+ 
+`;
+
 
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -91,16 +100,18 @@ const MovieDetail = () => {
   // Om allt är OK, rendera startsidan
 
   return (
-    <Backdrop style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
+    <Backdrop style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}  >
       <BackButton onClick={handleBack}>◀ Movies</BackButton>
+
+
+<Poster src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={movie.title}  loading='lazy' />
       <h1>{movie.title}</h1>
-      <img
-        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-        alt={movie.title}
-        loading='lazy'
-      />
+  
       <p>{movie.overview}</p>
       <p>⭐ {movie.vote_average}</p>
+
+
+
     </Backdrop>
   );
 };
