@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 
   :root {
-    --font-main: 'Belgrano', serif;
+    --font-main: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
     --font-display: 'TAN-Rosebud', serif;
     --font-alt: 'Lexend', sans-serif;
     --color-bg: #FAFBF4;
