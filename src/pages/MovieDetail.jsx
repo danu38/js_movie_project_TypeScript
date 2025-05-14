@@ -5,8 +5,21 @@ import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
 import NotFound from './NotFound';
+import styled from 'styled-components'
 
 // import ErrorMessage from '../components/ErrorMessage';
+
+
+
+const Backdrop = styled.div`
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+`;
+
+
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -62,17 +75,17 @@ const MovieDetail = () => {
   // Om allt är OK, rendera startsidan
 
   return (
-    <div className='movie-detail'>
+    <Backdrop style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
       <button onClick={handleBack}>← Back to list</button>
       <h1>{movie.title}</h1>
       <img
-        src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
+        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
         alt={movie.title}
         loading='lazy'
       />
       <p>{movie.overview}</p>
       <p>⭐ {movie.vote_average}</p>
-    </div>
+    </Backdrop>
   );
 };
 export default MovieDetail;
