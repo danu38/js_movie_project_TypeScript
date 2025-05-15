@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Img = styled.img`
   width: 100%;
@@ -23,11 +23,13 @@ const Overlay = styled.div`
 `;
 
 const MovieInfo = styled.div`
+  display: none;
   color: var(--color-text-white);
   padding: 0rem 0rem 1rem 1rem;
 
   @media (min-width: 1024px) {
     padding: 2rem;
+    display: block;
   }
 `;
 
@@ -44,7 +46,7 @@ const MovieCard = ({ movie }) => {
         <Img
           src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
           alt={movie.title}
-          loading='lazy'
+          loading="lazy"
         />
 
         {/* <Overlay></Overlay> */}
