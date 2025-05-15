@@ -51,7 +51,7 @@ const MovieCard = ({ movie }) => {
         <Overlay>
           <MovieInfo>
             <h2>{movie.title}</h2>
-            <p>⭐ {movie.vote_average}</p>
+            <p> {movie.release_date}</p>
           </MovieInfo>
         </Overlay>
       </Card>

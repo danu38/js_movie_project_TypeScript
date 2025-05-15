@@ -178,6 +178,7 @@ const MovieDetail = () => {
             <h2>{movie.title}</h2> <h3>⭐ {movie.vote_average}</h3>
           </MovieTitle>
           <p>{movie.overview}</p>
+          
         </MovieDetailstext>
       </MovieDetailsCon>
     </Backdrop>
