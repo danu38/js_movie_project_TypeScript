@@ -29,7 +29,6 @@ const Menu = styled.ul`
   margin: 0;
   background: white;
   position: absolute;
-  z-index: 10;
   width: 100%;
   max-height: 200px;
   overflow-y: auto;

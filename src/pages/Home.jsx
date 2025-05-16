@@ -10,13 +10,13 @@ import DropDown from '../components/DropDown';
 
 const Main = styled.main`
   width: 100vw;
-  position: relative;
 `;
 
 const Section = styled.section`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 `;
 
 const CardLink = styled(Link)`
@@ -40,7 +40,7 @@ const DropdownWrapper = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 10;
 `;
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -98,9 +98,6 @@ const Home = () => {
 
   return (
     <Main className='movie-list'>
-      <DropdownWrapper>
-        <DropDown onChange={handleChange}></DropDown>
-      </DropdownWrapper>
       {/* <label for='filter'>Choose:</label>
       <select name='filter' id='filter' onChange={handleChange}>
         <option value='popular'>Popular</option>
@@ -108,6 +105,9 @@ const Home = () => {
         <option value='top_rated'>Top rated</option>
       </select> */}
       <Section>
+        <DropdownWrapper>
+          <DropDown onChange={handleChange}></DropDown>
+        </DropdownWrapper>
         {movies.map((movie) => (
           <CardLink to={`/movies/${movie.id}`} key={movie.id}>
             <MovieCard movie={movie} />
