@@ -1,15 +1,14 @@
-# Technigo React Vite Boilerplate
+# About this project
 
-This boilerplate is designed to give you a head start in your React projects, with a focus on understanding the structure and components.
+A multi-page React application built in collaboration using the TMDB API.
 
-## Getting Started
+This project was developed in a team setting with the goal of building a dynamic movie browsing experience. The app fetches data from themoviedb.org (TMDB) API and displays a curated list of movies. Users can click on any movie to view a detailed page with more information, including backdrop images, overviews, and other relevant metadata.
 
-1. Begin with clicking "Use this template", to create your own repository using this boilerplate.
-2. Clone the repository to your local machine.
-3. Install the required dependencies using `npm install`.
-4. Start the development server using `npm run dev`.
+The project emphasizes API integration, responsive UI design, and clean routing using React Router. While our team used the "Popular Movies" endpoint as a base, the app structure supports swapping to other endpoints like "Now Playing" or specific genres. Styling and functionality were inspired by a provided design, with additional improvements to accessibility and UX.
 
-Happy coding!
+# Neftlify
+
+[https://holamovieproject.netlify.app/]
 
 ## OBS! We started to code on the wrong repo, see our early commits on this repo:
 
