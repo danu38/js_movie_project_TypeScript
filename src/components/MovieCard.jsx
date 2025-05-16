@@ -44,7 +44,7 @@ const MovieCard = ({ movie }) => {
     <>
       <Card>
         <Img
-          src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`}
           alt={movie.title}
           loading='lazy'
         />
