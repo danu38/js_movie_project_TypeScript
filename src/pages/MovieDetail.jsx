@@ -1,11 +1,11 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
-import { useNavigate } from "react-router-dom";
-import NotFound from "./NotFound";
-import styled from "styled-components";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
+import NotFound from './NotFound';
+import styled from 'styled-components';
 
 // import ErrorMessage from '../components/ErrorMessage';
 
@@ -19,7 +19,7 @@ const Backdrop = styled.div`
     `url(https://image.tmdb.org/t/p/original${backdrop})`};
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(8, 8, 8, 1), rgba(14, 14, 14, 0));
@@ -131,7 +131,7 @@ const MovieDetail = () => {
     )
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch movie details");
+          throw new Error('Failed to fetch movie details');
         }
         return res.json();
       })
@@ -150,17 +150,18 @@ const MovieDetail = () => {
     return () => clearTimeout(loaderDelay);
   }, [movieId]);
 
-  if ((loading && showLoader) || movie === null) {
-    //Visa loader om vi väntar på att visa loader | fortfarande laddar | inte fått movie än
-    return <Loader />;
-  }
-
+  // 1) Kolla om vi fick ett fel – visa NotFound direkt
   if (error) {
     return <NotFound />;
   }
 
+  // 2) Om vi fortfarande laddar, visa Loader (fördröjd via showLoader)
+  if (loading) {
+    return showLoader ? <Loader /> : null;
+  }
+
   const handleBack = () => {
-    navigate("/");
+    navigate('/');
   };
   // Om allt är OK, rendera startsidan
 
@@ -173,7 +174,7 @@ const MovieDetail = () => {
           <Poster
             src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
             alt={movie.title}
-            loading="lazy"
+            loading='lazy'
           />
 
           <MovieDetailstext>
