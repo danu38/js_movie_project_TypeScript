@@ -1,14 +1,16 @@
 // home.jsx is file to fetch up the all movies from the api
 // and show them in the home page
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import MovieCard from '../components/MovieCard';
+import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
+import DropDown from '../components/DropDown';
 
 const Main = styled.main`
   width: 100vw;
+  position: relative;
 `;
 
 const Section = styled.section`
@@ -34,6 +36,13 @@ const CardLink = styled(Link)`
   }
 `;
 
+const DropdownWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10000;
+`;
+
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 const Home = () => {
@@ -41,7 +50,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState(false);
-  const [filter, setFilter] = useState("popular");
+  const [filter, setFilter] = useState('popular');
 
   useEffect(() => {
     setLoading(true);
@@ -57,7 +66,7 @@ const Home = () => {
     fetch(API_URL)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch data 404");
+          throw new Error('Failed to fetch data 404');
         }
         return res.json();
       })
@@ -87,16 +96,17 @@ const Home = () => {
     setFilter(event.target.value);
   };
 
-  //om allt är OK, rendera startsidan
-
   return (
-    <Main className="movie-list">
-      <label for="filter">Choose:</label>
-      <select name="filter" id="filter" onChange={handleChange}>
-        <option value="popular">Popular</option>
-        <option value="upcoming">Upcoming</option>
-        <option value="top_rated">Top rated</option>
-      </select>
+    <Main className='movie-list'>
+      <DropdownWrapper>
+        <DropDown onChange={handleChange}></DropDown>
+      </DropdownWrapper>
+      {/* <label for='filter'>Choose:</label>
+      <select name='filter' id='filter' onChange={handleChange}>
+        <option value='popular'>Popular</option>
+        <option value='upcoming'>Upcoming</option>
+        <option value='top_rated'>Top rated</option>
+      </select> */}
       <Section>
         {movies.map((movie) => (
           <CardLink to={`/movies/${movie.id}`} key={movie.id}>
