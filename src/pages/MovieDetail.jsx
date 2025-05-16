@@ -1,13 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
 import NotFound from './NotFound';
 import styled from 'styled-components';
-
-// import ErrorMessage from '../components/ErrorMessage';
+import LoaderOverlay from '../components/LoaderOverlay';
 
 const Backdrop = styled.div`
   min-height: 100vh;
@@ -150,15 +148,7 @@ const MovieDetail = () => {
     return () => clearTimeout(loaderDelay);
   }, [movieId]);
 
-  // 1) Kolla om vi fick ett fel – visa NotFound direkt
-  if (error) {
-    return <NotFound />;
-  }
-
-  // 2) Om vi fortfarande laddar, visa Loader (fördröjd via showLoader)
-  if (loading) {
-    return showLoader ? <Loader /> : null;
-  }
+  const showOverlay = loading && showLoader;
 
   const handleBack = () => {
     navigate('/');
@@ -166,26 +156,35 @@ const MovieDetail = () => {
   // Om allt är OK, rendera startsidan
 
   return (
-    <Backdrop backdrop={movie.backdrop_path}>
-      <Wrapper>
-        <BackButton onClick={handleBack}>◀ Movies</BackButton>
+    <>
+      <LoaderOverlay visible={showOverlay} message='Loading movie details…' />
 
-        <MovieDetailsCon>
-          <Poster
-            src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-            alt={movie.title}
-            loading='lazy'
-          />
+      {error ? (
+        // show 404 if fetch failed
+        <NotFound />
+      ) : loading ? null : ( // while loading, content is hidden under overlay
+        <Backdrop backdrop={movie.backdrop_path}>
+          <Wrapper>
+            <BackButton onClick={handleBack}>◀ Movies</BackButton>
 
-          <MovieDetailstext>
-            <MovieTitle>
-              <h2> {movie.title}</h2> <h3>⭐ {movie.vote_average}</h3>
-            </MovieTitle>
-            <p>{movie.overview}</p>
-          </MovieDetailstext>
-        </MovieDetailsCon>
-      </Wrapper>
-    </Backdrop>
+            <MovieDetailsCon>
+              <Poster
+                src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                alt={movie.title}
+                loading='lazy'
+              />
+
+              <MovieDetailstext>
+                <MovieTitle>
+                  <h2> {movie.title}</h2> <h3>⭐ {movie.vote_average}</h3>
+                </MovieTitle>
+                <p>{movie.overview}</p>
+              </MovieDetailstext>
+            </MovieDetailsCon>
+          </Wrapper>
+        </Backdrop>
+      )}
+    </>
   );
 };
 export default MovieDetail;

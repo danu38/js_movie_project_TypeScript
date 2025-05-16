@@ -1,12 +1,12 @@
 // home.jsx is file to fetch up the all movies from the api
 // and show them in the home page
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
-import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import DropDown from '../components/DropDown';
+import LoaderOverlay from '../components/LoaderOverlay';
 
 const Main = styled.main`
   width: 100vw;
@@ -51,6 +51,7 @@ const Home = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState(false);
   const [filter, setFilter] = useState('popular');
+  const isFirstLoad = useRef(true);
 
   useEffect(() => {
     setLoading(true);
@@ -59,9 +60,15 @@ const Home = () => {
 
     const API_URL = `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=1`;
 
-    const loaderTimer = setTimeout(() => {
-      setShowLoader(true); // Visa loader efter 300ms
-    }, 300);
+    //Timer for loader
+    let loaderTimer;
+    if (isFirstLoad.current) {
+      // on first mount: show it immediately
+      setShowLoader(true);
+    } else {
+      // on subsequent filter changes: wait 300ms
+      loaderTimer = setTimeout(() => setShowLoader(true), 300);
+    }
 
     fetch(API_URL)
       .then((res) => {
@@ -73,49 +80,72 @@ const Home = () => {
       .then((data) => {
         setMovies(data.results);
         setLoading(false);
-        clearTimeout(loaderTimer); // Stoppa loader om vi hann först
+        if (loaderTimer) clearTimeout(loaderTimer);
+        // mark that first load has happened
+        isFirstLoad.current = false;
       })
       .catch((err) => {
         console.log(err);
         setError(true);
         setLoading(false);
-        clearTimeout(loaderTimer); // Stoppa loader om vi hann först
+        if (loaderTimer) clearTimeout(loaderTimer);
+        // mark that first load has happened
+        isFirstLoad.current = false;
       });
 
-    return () => clearTimeout(loaderTimer); // cleanup
+    return () => {
+      if (loaderTimer) clearTimeout(loaderTimer);
+    };
+    // cleanup function to clear the timer
   }, [filter]);
 
-  if (loading && showLoader) {
-    return <Loader />; // Loader component
-  }
-  if (error) {
-    return <ErrorMessage />; //ErrorMessage component
-  }
+  const showOverlay = loading && showLoader;
+
+  // custom message based on filter
+  const loadingMessage = `Fetching ${
+    filter === 'popular'
+      ? 'popular'
+      : filter === 'upcoming'
+      ? 'upcoming'
+      : 'top-rated'
+  } movies…`;
 
   const handleChange = (event) => {
     setFilter(event.target.value);
   };
 
   return (
-    <Main className='movie-list'>
-      {/* <label for='filter'>Choose:</label>
+    <>
+      <LoaderOverlay visible={showOverlay} message={loadingMessage} />
+
+      <Main>
+        {error ? (
+          /* if there’s an error, show this… */
+          <ErrorMessage />
+        ) : (
+          <Section>
+            <DropdownWrapper>
+              <DropDown onChange={handleChange}></DropDown>
+            </DropdownWrapper>
+            {movies.map((movie) => (
+              <CardLink to={`/movies/${movie.id}`} key={movie.id}>
+                <MovieCard movie={movie} />
+              </CardLink>
+            ))}
+          </Section>
+        )}
+      </Main>
+    </>
+  );
+};
+
+{
+  /* <label for='filter'>Choose:</label>
       <select name='filter' id='filter' onChange={handleChange}>
         <option value='popular'>Popular</option>
         <option value='upcoming'>Upcoming</option>
         <option value='top_rated'>Top rated</option>
-      </select> */}
-      <Section>
-        <DropdownWrapper>
-          <DropDown onChange={handleChange}></DropDown>
-        </DropdownWrapper>
-        {movies.map((movie) => (
-          <CardLink to={`/movies/${movie.id}`} key={movie.id}>
-            <MovieCard movie={movie} />
-          </CardLink>
-        ))}
-      </Section>
-    </Main>
-  );
-};
+      </select> */
+}
 
 export default Home;

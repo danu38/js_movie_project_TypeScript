@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
     --font-main: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
     --font-display: 'TAN-Rosebud', serif;
     --font-alt: 'Lexend', sans-serif;
-    --color-bg: #FAFBF4;
+    --color-bg: white;
     --color-text-black:rgb(0, 0, 0);
     --color-text-white: #FFFFFF;
     --color-accent: #FF7300;

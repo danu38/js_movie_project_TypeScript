@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Img = styled.img`
   width: 100%;
@@ -46,7 +46,7 @@ const MovieCard = ({ movie }) => {
         <Img
           src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
           alt={movie.title}
-          loading="lazy"
+          loading='lazy'
         />
 
         {/* <Overlay></Overlay> */}
