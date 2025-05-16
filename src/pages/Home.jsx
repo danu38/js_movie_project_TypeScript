@@ -111,7 +111,7 @@ const Home = () => {
   } movies…`;
 
   const handleChange = (event) => {
-    setFilter(event.target.value);
+    setFilter(event.target.value.toLowerCase());
   };
 
   return (
