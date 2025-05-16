@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 const Img = styled.img`
   width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 `;
 
 const Overlay = styled.div`
@@ -34,8 +36,14 @@ const MovieInfo = styled.div`
 `;
 
 const Card = styled.div`
+  overflow: hidden; /* This prevents the scaled img from overflowing */
+
   &:hover ${Overlay} {
     opacity: 1;
+  }
+
+  &:hover ${Img} {
+    transform: scale(1.1);
   }
 `;
 
