@@ -45,8 +45,17 @@ const DropdownWrapper = styled.div`
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  backdrop_path: string;
+  vote_average: number;
+  release_date: string;
+};
+
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+ const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState(false);
@@ -61,7 +70,7 @@ const Home = () => {
     const API_URL = `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=1`;
 
     //Timer for loader
-    let loaderTimer;
+   let loaderTimer: NodeJS.Timeout;
     if (isFirstLoad.current) {
       // on first mount: show it immediately
       setShowLoader(true);
@@ -110,7 +119,7 @@ const Home = () => {
       : 'top-rated'
   } movies…`;
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setFilter(event.target.value.toLowerCase());
   };
 
