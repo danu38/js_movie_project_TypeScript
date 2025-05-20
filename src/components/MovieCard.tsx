@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+interface Movie {
+  title: string;
+  poster_path: string | null;
+  release_date: string;
+}
+
+interface MovieCardProps {
+  movie: Movie;
+}
 
 const Img = styled.img`
   width: 100%;
@@ -47,15 +57,17 @@ const Card = styled.div`
   }
 `;
 
-const MovieCard = ({ movie }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <>
       <Card>
-        <Img
-          src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`}
-          alt={movie.title}
-          loading='lazy'
-        />
+        {movie.poster_path && (
+          <Img
+            src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`}
+            alt={movie.title}
+            loading="lazy"
+          />
+        )}
 
         {/* <Overlay></Overlay> */}
         <Overlay>
