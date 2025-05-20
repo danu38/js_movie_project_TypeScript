@@ -105,7 +105,7 @@ const Wrapper = styled.div`
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
-// 👇 Type for a single movie from TMDB API
+// Added an interface for the shape of the movie object returned by the API
 interface Movie {
   id: number;
   title: string;
@@ -116,7 +116,7 @@ interface Movie {
 }
 
 const MovieDetail: React.FC = () => {
-  const { movieId } = useParams<{ movieId: string }>();
+  const { movieId } = useParams<{ movieId: string }>(); //The movieId returned from useParams() is a string, so  explicitly declared its type
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showLoader, setShowLoader] = useState<boolean>(false);
@@ -153,7 +153,7 @@ const MovieDetail: React.FC = () => {
   }, [movieId]);
 
   const showOverlay = loading && showLoader;
-
+  //TypeScript the function doesn’t return anything
   const handleBack = (): void => {
     navigate("/");
   };

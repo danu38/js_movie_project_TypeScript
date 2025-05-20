@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import videoFile from "../assets/watermarked_preview.mp4";
 
@@ -39,7 +39,7 @@ const BackgroundVideo = styled.video`
   }
 `;
 
-const HomeButton = styled.button`
+const HomeButton = styled(Link)`
   color: white;
   border: solid 2px white;
   border-radius: 5px;
@@ -75,8 +75,8 @@ const NotFound = () => {
       <Section>
         <p>
           The requested URL was not found on our server. Go to the{" "}
-          <HomeButton>
-            <Link to="/">Home Page</Link>{" "}
+          <HomeButton
+             to="/">Home Page
           </HomeButton>
         </p>
       </Section>
