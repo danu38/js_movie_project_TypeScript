@@ -22,7 +22,7 @@ const StyledLoader = styled.div`
 `;
 
 const Loader = () => {
-  return <StyledLoader></StyledLoader>;
+  return <StyledLoader role="status" aria-label="Loading"></StyledLoader>;
 };
 
 export default Loader;

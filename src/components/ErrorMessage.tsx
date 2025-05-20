@@ -46,7 +46,7 @@ const Button = styled.button`
 const ErrorMessage = () => {
   return (
     <ErrorMessageWrapper>
-      <ErrorMessageContainer role='alert'>
+      <ErrorMessageContainer role='alert' aria-live="assertive">
         <p>Hoppsan! Något gick fel när filmerna skulle hämtas.</p>
         <Button onClick={() => window.location.reload()}>Försök igen</Button>
       </ErrorMessageContainer>

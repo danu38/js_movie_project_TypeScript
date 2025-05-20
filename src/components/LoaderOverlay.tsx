@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import Loader from './Loader';
 
-const FadeWrapper = styled.div`
+interface LoaderOverlayProps {
+  visible: boolean;
+  message?: string;
+}
+
+const FadeWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
@@ -16,11 +21,14 @@ const FadeWrapper = styled.div`
   transition: opacity 0.3s ease, visibility 0.3s ease;
 `;
 
-export default function LoaderOverlay({ visible, message = 'Laddar…' }) {
+const LoaderOverlay: React.FC<LoaderOverlayProps> = ({
+  visible,
+  message = 'Laddar…',
+}) => {
   return (
     <FadeWrapper
       $visible={visible}
-      role='status'
+      role="status"
       aria-busy={visible}
       aria-label={message}
     >
@@ -28,4 +36,6 @@ export default function LoaderOverlay({ visible, message = 'Laddar…' }) {
       <p>{message}</p>
     </FadeWrapper>
   );
-}
+};
+
+export default LoaderOverlay;
