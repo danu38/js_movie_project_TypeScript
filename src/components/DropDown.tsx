@@ -1,5 +1,5 @@
 // Created by: ChatGPT with some modifications
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, KeyboardEvent, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 const DropdownWrapper = styled.div`
@@ -26,7 +26,7 @@ const TriggerButton = styled.button`
   }
 `;
 
-const Menu = styled.ul`
+const Menu = styled.ul<{ 'data-open': boolean }>`
   list-style: none;
   padding: 0;
   margin: 0;
@@ -49,7 +49,7 @@ const Menu = styled.ul`
   }
 `;
 
-const MenuItem = styled.li`
+const MenuItem = styled.li<{ isFocused: boolean }>`
   color: white;
   padding: 8px 12px;
   background: ${({ isFocused }) => (isFocused ? 'darkgrey' : 'black')};
@@ -62,19 +62,23 @@ const MenuItem = styled.li`
 
 const options = ['Popular', 'Upcoming', 'Top_rated'];
 
-const AccessibleDropdown = ({ onChange }) => {
+interface AccessibleDropdownProps {
+  onChange?: (event: { target: { value: string; name: string } }) => void;
+}
+
+const AccessibleDropdown: React.FC<AccessibleDropdownProps> = ({ onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const buttonRef = useRef();
-  const listRef = useRef();
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
-  const handleSelect = (index) => {
+  const handleSelect = (index : number) => {
     setSelectedIndex(index);
     setIsOpen(false);
-    buttonRef.current.focus();
+    buttonRef.current?.focus();
 
     if (onChange) {
       const fakeEvent = {
@@ -87,7 +91,7 @@ const AccessibleDropdown = ({ onChange }) => {
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
     if (!isOpen) return;
 
     switch (e.key) {
@@ -105,7 +109,7 @@ const AccessibleDropdown = ({ onChange }) => {
         break;
       case 'Escape':
         setIsOpen(false);
-        buttonRef.current.focus();
+        buttonRef.current?.focus();
         break;
       default:
         break;
