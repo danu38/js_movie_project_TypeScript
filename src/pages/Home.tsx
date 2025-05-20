@@ -1,7 +1,7 @@
 // home.jsx is file to fetch up the all movies from the api
 // and show them in the home page
 import styled from 'styled-components';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef,  ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
 import ErrorMessage from '../components/ErrorMessage';
@@ -43,8 +43,18 @@ const DropdownWrapper = styled.div`
   z-index: 10;
 `;
 
-const API_KEY = import.meta.env.VITE_API_KEY;
 
+interface ImportMetaEnv {
+  readonly VITE_API_KEY: string;
+  // added  env variables 
+}
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+
+const API_KEY = import.meta.env.VITE_API_KEY;
+// structure of one movie object from the results array (https://api.themoviedb.org/3/movie/popular?api_key=VITE_API_KEY&language=en-US&page=1)
 type Movie = {
   id: number;
   title: string;
@@ -55,7 +65,7 @@ type Movie = {
 };
 
 const Home = () => {
- const [movies, setMovies] = useState<Movie[]>([]);
+ const [movies, setMovies] = useState<Movie[]>([]); // movies is an array of Movie objects
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(false);
   const [error, setError] = useState(false);
@@ -70,7 +80,7 @@ const Home = () => {
     const API_URL = `https://api.themoviedb.org/3/movie/${filter}?api_key=${API_KEY}&language=en-US&page=1`;
 
     //Timer for loader
-   let loaderTimer: NodeJS.Timeout;
+   let loaderTimer: number;
     if (isFirstLoad.current) {
       // on first mount: show it immediately
       setShowLoader(true);
