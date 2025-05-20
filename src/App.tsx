@@ -6,7 +6,7 @@ import NotFound from './pages/NotFound';
 
 // The Header component will show in all "pages" It is outside of the routing scope.
 
-export const App = () => {
+export const App: React.FC = () => {
   return (
     <>
       <BrowserRouter>
